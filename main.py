@@ -2,6 +2,23 @@ import sys
 
 from PIL import Image
 
+
+def encode_to_base36(num):
+    """Кодирует число в base-36: 0-9, A-Z, a-z"""
+    if num < 0:
+        raise ValueError("Number must be non-negative")
+    
+    charset = "0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz"
+    if num < len(charset):
+        return charset[num]
+    
+    result = []
+    while num > 0:
+        result.append(charset[num % len(charset)])
+        num //= len(charset)
+    return ''.join(reversed(result))
+
+
 def generate_halftone_svg(image_path, output_path, cols=80, max_radius=6, animation_variants=12):
     import random
 
@@ -20,7 +37,8 @@ def generate_halftone_svg(image_path, output_path, cols=80, max_radius=6, animat
     animation_classes = []
     for i in range(animation_variants):
         delay = (i / animation_variants) * 3
-        animation_classes.append(f".a{i}{{--d:{delay:.2f}s}}")
+        encoded_i = encode_to_base36(i)
+        animation_classes.append(f".a{encoded_i}{{--d:{delay:.2f}s}}")
 
     for y in range(rows):
         for x in range(cols):
@@ -36,8 +54,9 @@ def generate_halftone_svg(image_path, output_path, cols=80, max_radius=6, animat
 
             # Каждой точке свой класс с уникальной задержкой
             anim_class = random.randint(0, animation_variants - 1)
+            encoded_class = encode_to_base36(anim_class)
             svg_elements.append(
-                f'<circle cx="{cx}" cy="{cy}" r="{int(radius)}" class="a{anim_class}"/>'
+                f'<circle cx="{cx}" cy="{cy}" r="{int(radius)}" class="a{encoded_class}"/>'
             )
 
     animation_css = "".join(animation_classes)
