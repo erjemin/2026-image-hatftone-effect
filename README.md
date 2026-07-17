@@ -24,7 +24,7 @@ poetry install
 poetry run python main.py img/img_2.jpg
 ```
 
-На выходе получишь `img_3j.svg` с анимацией.
+На выходе получишь `img_2j.svg` с анимацией.
 
 ## Параметры
 
