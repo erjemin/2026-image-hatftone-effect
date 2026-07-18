@@ -1,5 +1,10 @@
 # Image Halftone Experiment
 
+![Version](https://img.shields.io/badge/Python-3.14-blue)
+![Version](https://img.shields.io/badge/version-0.1.1-blue)
+![License](https://img.shields.io/badge/license-MIT-green)
+[![Static Badge](https://img.shields.io/badge/ОРИГИНАЛ-git.cube2.ru-green)](https://git.cube2.ru/erjemin/2026-image-hatftone-effect)
+
 Генерирует SVG халфтоновый эффект из изображения с анимацией мерцания точек.
 
 Например:
