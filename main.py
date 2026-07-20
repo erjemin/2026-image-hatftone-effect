@@ -3,7 +3,7 @@ import sys
 from PIL import Image
 
 
-def encode_to_base36(num):
+def encode_to_base36(num: int) -> str:
     """Кодирует число в base-36: 0-9, A-Z, a-z"""
     if num < 0:
         raise ValueError("Number must be non-negative")
@@ -19,7 +19,13 @@ def encode_to_base36(num):
     return ''.join(reversed(result))
 
 
-def generate_halftone_svg(image_path, output_path, cols=80, max_radius=8, animation_variants=12):
+def generate_halftone_svg(
+        image_path: str,
+        output_path: str,
+        cols: int = 80,
+        max_radius: int = 8,
+        animation_variants: int = 12):
+    '''Генерирует SVG с полутоновым эффектом из изображения.'''
     import random
     from collections import defaultdict
 
